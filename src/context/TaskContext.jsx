@@ -16,22 +16,6 @@ export const TaskProvider = ({ children }) => {
   const [searchQuery, setSearchQuery] = useState(""); // Search query
   const [removedTasks, setRemovedTasks] = useLocalStorage("removedTasks", 0); // Removed tasks count
 
-  const handleAddTask = (e) => {
-    e.preventDefault();
-    if (newTask.trim() !== "") {
-      setTasks([
-        ...tasks,
-        {
-          text: newTask,
-          completed: false,
-          createdAt: new Date().toISOString(), // Task creation date
-          priority: priority,
-        },
-      ]);
-      setNewTask("");
-    }
-  };
-
   // Toggle task completion status
   const toggleCompleted = (taskId) => {
     setTasks((prevTasks) =>
@@ -44,10 +28,41 @@ export const TaskProvider = ({ children }) => {
   };
 
   const taskReminder = (task) => {
-    // Logic for task reminder
-    console.log(task)
+    alert(`Finish Your Task ! ${task.text}`);
   };
 
+  // this function sets a reminder timer for the new task
+  const startReminderTimer = (task) => {
+    const TWO_HOURS_MS = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+
+    setTimeout(() => {
+      const currentTask = tasks.find((t) => t.createdAt === task.createdAt);
+      if (currentTask && !currentTask.completed) {
+        taskReminder(currentTask);
+      }
+    }, TWO_HOURS_MS);
+  };
+
+  const handleAddTask = (e) => {
+    e.preventDefault();
+    if (newTask.trim() !== "") {
+      const newTaskObj = {
+        text: newTask,
+        completed: false,
+        createdAt: new Date().toISOString(),
+        priority: priority,
+      };
+      setTasks((prevTasks) => {
+        // console.log(`Task: ${JSON.stringify(prevTasks)}`)
+        const updatedTasks = [...prevTasks, newTaskObj];
+        return updatedTasks;
+      });
+
+      startReminderTimer(newTaskObj);
+
+      setNewTask("");
+    }
+  };
   // Delete a task
   const handleDeleteTodo = (taskId) => {
     setTasks((prevTasks) =>
@@ -101,7 +116,7 @@ export const TaskProvider = ({ children }) => {
         case TIME_FILTERS.WEEK:
           return taskDate >= thisWeek;
         case TIME_FILTERS.MONTH:
-          return taskDate >= thisMonth;    
+          return taskDate >= thisMonth;
 
         default:
           return true;
@@ -166,6 +181,7 @@ export const TaskProvider = ({ children }) => {
     handleEdit,
     handlePriorityChange,
     getRemovedTasks,
+    taskReminder,
     filteredAndSortedTasks: getFilteredAndSortedTasks(),
   };
 
