@@ -43,6 +43,11 @@ export const TaskProvider = ({ children }) => {
     );
   };
 
+  const taskReminder = (task) => {
+    // Logic for task reminder
+    console.log(task)
+  };
+
   // Delete a task
   const handleDeleteTodo = (taskId) => {
     setTasks((prevTasks) =>
@@ -96,7 +101,8 @@ export const TaskProvider = ({ children }) => {
         case TIME_FILTERS.WEEK:
           return taskDate >= thisWeek;
         case TIME_FILTERS.MONTH:
-          return taskDate >= thisMonth;
+          return taskDate >= thisMonth;    
+
         default:
           return true;
       }

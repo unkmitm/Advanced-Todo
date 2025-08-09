@@ -1,43 +1,52 @@
-import { FilterButton } from './FilterButton';
-import { useTaskContext } from '../../context/TaskContext';
-import { FILTERS, TIME_FILTERS, SORT_ORDERS } from '../../constants/filters';
-import { useState } from 'react';
+import { FilterButton } from "./FilterButton";
+import { useTaskContext } from "../../context/TaskContext";
+import { FILTERS, TIME_FILTERS, SORT_ORDERS } from "../../constants/filters";
+import { useState } from "react";
 
 export const FilterBar = () => {
-  const { filter, setFilter, timeFilter, setTimeFilter, sortOrder, setSortOrder } =
-    useTaskContext();
+  const {
+    filter,
+    setFilter,
+    timeFilter,
+    setTimeFilter,
+    sortOrder,
+    setSortOrder,
+  } = useTaskContext();
 
-  const [activeTab, setActiveTab] = useState('status');
+  const [activeTab, setActiveTab] = useState("status");
 
   return (
-    <div className='mb-6'>
+    <div className="mb-6">
       {/* Mobile Tabs */}
-      <div className='sm:hidden flex border-b border-gray-700 mb-4'>
+      <div className="sm:hidden flex border-b border-gray-700 mb-4">
         <button
-          onClick={() => setActiveTab('status')}
-          className={`flex-1 py-2 text-center ${activeTab === 'status' ? 'text-purple-500 border-b-2 border-purple-500' : 'text-gray-400'}`}
+          onClick={() => setActiveTab("status")}
+          className={`flex-1 py-2 text-center ${activeTab === "status" ? "text-purple-500 border-b-2 border-purple-500" : "text-gray-400"}`}
         >
           Status
         </button>
         <button
-          onClick={() => setActiveTab('time')}
-          className={`flex-1 py-2 text-center ${activeTab === 'time' ? 'text-purple-500 border-b-2 border-purple-500' : 'text-gray-400'}`}
+          onClick={() => setActiveTab("time")}
+          className={`flex-1 py-2 text-center ${activeTab === "time" ? "text-purple-500 border-b-2 border-purple-500" : "text-gray-400"}`}
         >
           Time
         </button>
         <button
-          onClick={() => setActiveTab('sort')}
-          className={`flex-1 py-2 text-center ${activeTab === 'sort' ? 'text-purple-500 border-b-2 border-purple-500' : 'text-gray-400'}`}
+          onClick={() => setActiveTab("sort")}
+          className={`flex-1 py-2 text-center ${activeTab === "sort" ? "text-purple-500 border-b-2 border-purple-500" : "text-gray-400"}`}
         >
           Sort
         </button>
       </div>
 
       {/* Desktop View */}
-      <div className='hidden sm:flex sm:flex-wrap sm:gap-4'>
+      <div className="hidden sm:flex sm:flex-wrap sm:gap-4">
         {/* Status Filters */}
-        <div className='flex gap-2'>
-          <FilterButton active={filter === FILTERS.ALL} onClick={() => setFilter(FILTERS.ALL)}>
+        <div className="flex gap-2">
+          <FilterButton
+            active={filter === FILTERS.ALL}
+            onClick={() => setFilter(FILTERS.ALL)}
+          >
             All
           </FilterButton>
           <FilterButton
@@ -54,7 +63,7 @@ export const FilterBar = () => {
           </FilterButton>
         </div>
         {/* Time Filters */}
-        <div className='flex gap-2'>
+        <div className="flex gap-2">
           <FilterButton
             active={timeFilter === TIME_FILTERS.ALL}
             onClick={() => setTimeFilter(TIME_FILTERS.ALL)}
@@ -79,15 +88,15 @@ export const FilterBar = () => {
           >
             This Month
           </FilterButton>
-        </div>
+        </div>  
         {/* Sort Orders */}
-        <div className='flex gap-2'>
-          {/* <FilterButton
+        <div className="flex gap-2">
+          <FilterButton
             active={sortOrder === SORT_ORDERS.NEWEST}
             onClick={() => setSortOrder(SORT_ORDERS.NEWEST)}
           >
-            Newest */}
-          {/* </FilterButton> */}
+            Newest
+          </FilterButton>
           <FilterButton
             active={sortOrder === SORT_ORDERS.OLDEST}
             onClick={() => setSortOrder(SORT_ORDERS.OLDEST)}
@@ -104,10 +113,13 @@ export const FilterBar = () => {
       </div>
 
       {/* Mobile View - Only active tab visible */}
-      <div className='sm:hidden overflow-x-auto'>
-        {activeTab === 'status' && (
-          <div className='flex gap-2'>
-            <FilterButton active={filter === FILTERS.ALL} onClick={() => setFilter(FILTERS.ALL)}>
+      <div className="sm:hidden overflow-x-auto">
+        {activeTab === "status" && (
+          <div className="flex gap-2">
+            <FilterButton
+              active={filter === FILTERS.ALL}
+              onClick={() => setFilter(FILTERS.ALL)}
+            >
               All
             </FilterButton>
             <FilterButton
@@ -125,8 +137,8 @@ export const FilterBar = () => {
           </div>
         )}
 
-        {activeTab === 'time' && (
-          <div className='flex gap-2'>
+        {activeTab === "time" && (
+          <div className="flex gap-2">
             <FilterButton
               active={timeFilter === TIME_FILTERS.ALL}
               onClick={() => setTimeFilter(TIME_FILTERS.ALL)}
@@ -154,8 +166,8 @@ export const FilterBar = () => {
           </div>
         )}
 
-        {activeTab === 'sort' && (
-          <div className='flex gap-2'>
+        {activeTab === "sort" && (
+          <div className="flex gap-2">
             <FilterButton
               active={sortOrder === SORT_ORDERS.NEWEST}
               onClick={() => setSortOrder(SORT_ORDERS.NEWEST)}
